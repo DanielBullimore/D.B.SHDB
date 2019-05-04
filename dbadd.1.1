@@ -1,0 +1,50 @@
+#!/bin/sh
+# File: dbadd.1.1
+# System: D.B.SHDB.1.1
+# Dependencies:-
+# ------------------------------------------------
+# Author: Daniel Bullimore
+# Authors Email: - 
+# First Written: 2013
+# ------------------------------------------------
+# !If you make changes add your name to the list
+# Last Modified (d/m/y): 
+# 4/5/2019 Daniel Bullimore
+#
+# ------------------------------------------------
+# Copyright 2019 Daniel Bullimore
+# D.B.SHDB is licensed under the The 3-Clause BSD License
+# To view this license:
+# https://github.com/DanielBullimore/D.B.SHDB/blob/master/LICENSE
+#
+#--------------
+#---DISCRIPTION\
+#---------------
+# adds a row to database file
+# Checks all required parameters have been provided and 
+# the file exists and can be written to.
+# then insures provided key is unique
+# finally if all conditions are met writes the new pair to file and exits with 0
+# will return error message on fail and exit with 1
+
+if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+ then
+	echo "Syntax: dbadd <key> <value> <db file>";
+	exit 1;
+ elif [ ! -f $3 ]
+ then
+	echo "Error: database file not found";
+	exit 1;
+ elif [ ! -w $3 ] || [ ! -r $3 ]
+ then
+	echo "Error: can not read or write to database file";
+	exit 1;
+
+ elif [ ! -z $(db get $1 $3) ]
+ then
+	echo "Error: Key exists";
+	exit 1;
+ else
+echo "$1	$2" | cat >> $3 -;
+	exit 0;
+fi;
