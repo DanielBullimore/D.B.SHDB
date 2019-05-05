@@ -26,15 +26,15 @@
 # returns associated value for key when found
 # exit on 1 on error.
 
-if [ -z $1 ] || [ -z $2 ]
+if [ -z "$1" ] || [ -z "$2" ]
  then 
 	echo "Error: dbget <key> <file>"
 	exit 1;
- elif [ ! -f $2 ]
+ elif [ ! -f "$2" ]
  then
 	echo "Error: database file not found";
 	exit 1; 
- elif [ ! -r $2 ]
+ elif [ ! -r "$2" ]
  then
 	echo "Error: can not read database file";
 	exit 1;
@@ -47,5 +47,5 @@ if [ -z $1 ] || [ -z $2 ]
 			echo $(echo "$f" | cut -d\	 -f2);
 			exit 0;
 		fi;	
-	 done < $2 
+	 done < "$2" 
 fi;

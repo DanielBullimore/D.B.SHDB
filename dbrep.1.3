@@ -35,15 +35,15 @@
 #------------------
 # Unique/random temp file name would allow more than one replace case to be run at the same time.
 
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
  then
 	echo "Syntax: dbrep <replace key> <new value> <db file>";
 	exit 1;
- elif [ ! -f $3 ]
+ elif [ ! -f "$3" ]
  then
 	echo "Error: database not found";
 	exit 1;
- elif [ ! -r $3 ] || [ ! -w $3 ]
+ elif [ ! -r "$3" ] || [ ! -w "$3" ]
  then
 	echo "Error: can not read or write from database file: $3";
 	exit 1;
@@ -68,10 +68,10 @@ if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
 		 else
 			echo "$f" | cat >> ~/dbtemp -;
 		fi;
-	done < $3;
+	done < "$3";
 	if [ "$FOUND" = "TRUE" ]
 	 then 
-		cat ~/dbtemp | cat > $3 -;
+		cat ~/dbtemp | cat > "$3" -;
 		rm ~/dbtemp;
 	 else
 		echo "Error: Key not found";

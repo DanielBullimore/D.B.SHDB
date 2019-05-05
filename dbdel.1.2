@@ -27,25 +27,25 @@
  #the row being deleted and over writes with any results.
 # exits 1 on error and 0 on success
 # 
-if [ -z $1 ] || [ -z $2 ]
+if [ -z "$1" ] || [ -z "$2" ]
  then
 	echo "Syntax: dbdel <key> <file>";
 	exit 1;	
- elif [ ! -f $2 ]
+ elif [ ! -f "$2" ]
  then
 	echo "Error: database file not found";
 	exit 1;
- elif [ ! -r $2 ] || [ ! -w $2 ]
+ elif [ ! -r "$2" ] || [ ! -w "$2" ]
  then
 	echo "Error: can not read or write database file";
 	exit 1;
  else
-	NEWFILE=$(grep -v "^$1	" $2);
+	NEWFILE=$(grep -v "^$1	" "$2");
 	if [ ! -z "$NEWFILE" ]
 	 then
-		echo "$NEWFILE" | cat > $2 -;
+		echo "$NEWFILE" | cat > "$2" -;
 	 else
-		echo -n "" | cat > $2 -;
+		echo -n "" | cat > "$2" -;
 	fi;
 	exit 0;
 fi;
