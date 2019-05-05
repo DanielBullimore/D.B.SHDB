@@ -1,0 +1,80 @@
+#!/bin/sh
+# File: dbrep.1.1
+# System: D.B.SHDB.1.1
+# Dependencies: -
+# ------------------------------------------------
+# Author: Daniel Bullimore
+# Authors Email: - 
+# First Written: 2013
+# ------------------------------------------------
+# !If you make changes add your name to the list
+# Last Modified (d/m/y): 
+# 4/5/2019 Daniel Bullimore
+#
+# ------------------------------------------------
+# Copyright 2019 Daniel Bullimore
+# D.B.SHDB is licensed under the The 3-Clause BSD License
+# To view this license:
+# https://github.com/DanielBullimore/D.B.SHDB/blob/master/LICENSE
+#
+#--------------
+#---DISCRIPTION\
+#---------------
+# Replaces the value of given key in database file
+# Checks null parameters, database exists and can be read/written
+# Insures no other replace functions are in action
+# exits on 1 on parameter/state errors
+# reads database file line by line searching for replace key
+# writes all non matching pairs to temp file
+# once found the matching key is written to temp with new value
+# when all lines copied a check is made for the replacement having taken place
+# over writes database file with new temp file if replacement took place
+# returns error if replace key was not matched.
+#------------------
+# Notes
+#------------------
+# Unique/random temp file name would allow more than one replace case to be run at the same time.
+
+if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+ then
+	echo "Syntax: dbrep <replace key> <new value> <db file>";
+	exit 1;
+ elif [ ! -f $3 ]
+ then
+	echo "Error: database not found";
+	exit 1;
+ elif [ ! -r $3 ] || [ ! -w $3 ]
+ then
+	echo "Error: can not read or write from database file: $3";
+	exit 1;
+ else
+	if [ ! -f ~/dbtmp ]
+	 then
+     #todo make random file name
+		touch ~/dbtemp;
+	 else
+		echo "Error: File IO colision";	
+		exit 1;
+	fi;
+	FOUND="FALSE";
+	while read f
+	 do
+		KEY=$(echo "$f" | cut -d\	 -f1);
+		if [ "$KEY" = "$1" ]
+		 then
+			#found
+			echo "$1	$2" | cat >> ~/dbtemp -; 
+			FOUND="TRUE";
+		 else
+			echo "$f" | cat >> ~/dbtemp -;
+		fi;
+	done < $3;
+	if [ "$FOUND" = "TRUE" ]
+	 then 
+		cat ~/dbtemp | cat > $3 -;
+		rm ~/dbtemp;
+	 else
+		echo "Error: Key not found";
+		exit 1;
+	fi;	
+fi;
