@@ -1,5 +1,8 @@
 # D.B.SHDB
+-Daniel.Bullimore.ShellDatabase
 Simple Shell Database engine for shell scripts
+
+Just joined github need to publish something, anything. D.B.SHDB is my smallest working project.
 
 I wrote this script along time ago, its an old school Tab file io engine.
 It is small and basic by design.
