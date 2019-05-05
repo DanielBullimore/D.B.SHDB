@@ -1,0 +1,51 @@
+#!/bin/sh
+# File: dbget.1.1
+# System: D.B.SHDB.1.1
+# Dependencies: -
+# ------------------------------------------------
+# Author: Daniel Bullimore
+# Authors Email: - 
+# First Written: 2013
+# ------------------------------------------------
+# !If you make changes add your name to the list
+# Last Modified (d/m/y): 
+# 4/5/2019 Daniel Bullimore
+#
+# ------------------------------------------------
+# Copyright 2019 Daniel Bullimore
+# D.B.SHDB is licensed under the The 3-Clause BSD License
+# To view this license:
+# https://github.com/DanielBullimore/D.B.SHDB/blob/master/LICENSE
+#
+#--------------
+#---DISCRIPTION\
+#---------------
+# returns the value of key in database file
+# checks for null parameters, database exists and can be read from
+# reads database file line by line matching key
+# returns associated value for key when found
+# exit on 1 on error.
+
+if [ -z $1 ] || [ -z $2 ]
+ then 
+	echo "Error: dbget <key> <file>"
+	exit 1;
+ elif [ ! -f $2 ]
+ then
+	echo "Error: database file not found";
+	exit 1; 
+ elif [ ! -r $2 ]
+ then
+	echo "Error: can not read database file";
+	exit 1;
+ else
+	while read f 
+	 do
+		LINEKEY=$(echo "$f" | cut -d\	 -f1);
+		if [ "$1" = "$LINEKEY" ]
+		 then
+			echo $(echo "$f" | cut -d\	 -f2);
+			exit 0;
+		fi;	
+	 done < $2 
+fi;
