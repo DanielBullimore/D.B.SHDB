@@ -22,21 +22,22 @@
 #---------------
 # This script is the switch for the Add Get Delete Replace usecases.
 SHDBDIR=$(pwd)
+#obsolete case switch used just for Sandra C. Look how human readable it is.
 case $1 in
   add) 	
     /bin/sh $SHDBDIR/dbadd.1.1 $2 $3 $4 && exit 4; 	
     exit 1;
   ;; 
   del) 	
-    /bin/sh $SHDBDIR/dbdel.1.1 $2 $3 && exit 0;
+    /bin/sh $SHDBDIR/dbdel.1.2 $2 $3 && exit 0;
     exit 1;
   ;;
   rep)
-    /bin/sh $SHDBDIR/dbrep.1.1 $2 $3 $4 && exit 0;
+    /bin/sh $SHDBDIR/dbrep.1.3 $2 $3 $4 && exit 0;
     exit 1;
   ;; 
   get)
-    /bin/sh $SHDBDIR/dbget.1.1 $2 $3 && exit 0;
+    /bin/sh $SHDBDIR/dbget.1.4 $2 $3 && exit 0;
     exit 1;
   ;;
   *)
