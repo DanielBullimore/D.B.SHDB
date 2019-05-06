@@ -5,7 +5,7 @@ Simple Shell Database engine for shell scripts
 
 Just joined github need to publish something, anything. D.B.SHDB is my smallest working project.
 
-I wrote this script along time ago, its an old school Tab file io engine.
+I wrote this module along time ago, its an old school flatfile db engine writen in Shell script.
 It is small and basic by design.
 I intended to produce a persistent memory system for unix scripts.
 The hope was the engine would function without modification on any *nix shell.
