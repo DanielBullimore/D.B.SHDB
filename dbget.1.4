@@ -10,6 +10,7 @@
 # !If you make changes add your name to the list
 # Last Modified (d/m/y): 
 # 4/5/2019 Daniel Bullimore
+# 9/5/2019 Daniel Bullimore
 #
 # ------------------------------------------------
 # Copyright 2019 Daniel Bullimore
@@ -28,7 +29,7 @@
 
 if [ -z "$1" ] || [ -z "$2" ]
  then 
-	echo "Error: dbget <key> <file>"
+	echo "Error: db get <row_key> <db_file>"
 	exit 1;
  elif [ ! -f "$2" ]
  then

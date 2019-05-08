@@ -10,6 +10,7 @@
 # !If you make changes add your name to the list
 # Last Modified (d/m/y): 
 # 4/5/2019 Daniel Bullimore
+# 9/5/2019 Daniel Bullimore
 #
 # ------------------------------------------------
 # Copyright 2019 Daniel Bullimore
@@ -29,7 +30,7 @@
 # 
 if [ -z "$1" ] || [ -z "$2" ]
  then
-	echo "Syntax: dbdel <key> <file>";
+	echo "Syntax: db del <row_key> <db_file>";
 	exit 1;	
  elif [ ! -f "$2" ]
  then
