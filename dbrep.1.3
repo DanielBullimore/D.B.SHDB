@@ -10,6 +10,7 @@
 # !If you make changes add your name to the list
 # Last Modified (d/m/y): 
 # 4/5/2019 Daniel Bullimore
+# 9/5/2019
 #
 # ------------------------------------------------
 # Copyright 2019 Daniel Bullimore
@@ -37,7 +38,7 @@
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
  then
-	echo "Syntax: dbrep <replace key> <new value> <db file>";
+	echo "Syntax: db rep <row_key> <new_value> <db_file>";
 	exit 1;
  elif [ ! -f "$3" ]
  then
