@@ -16,4 +16,8 @@ My decision on a db table file directory and create/destroy table functions has 
 
 This engine was written on like FreeBSD 8 or 9 and still functions on 11. And has been used as part of my Freebsd IDS for the past 6 years.
 
+TESTED and WORKING on:
+-Freebsd
+-Debian
+
 Daniel
