@@ -10,7 +10,7 @@
 # !If you make changes add your name to the list
 # Last Modified (d/m/y): 
 # 4/5/2019 Daniel Bullimore
-#
+# 9/5/2019 daniel bullimore 
 # ------------------------------------------------
 # Copyright 2019 Daniel Bullimore
 # D.B.SHDB is licensed under the The 3-Clause BSD License
@@ -48,10 +48,10 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
 	echo "Error: can not read or write from database file: $3";
 	exit 1;
  else
-	if [ ! -f ~/dbtmp ]
+	if [ ! -f ~/dbtmp."$$" ]
 	 then
      #todo make random file name
-		touch ~/dbtemp;
+		touch ~/dbtemp."$$";
 	 else
 		echo "Error: File IO colision";	
 		exit 1;
@@ -63,16 +63,16 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]
 		if [ "$KEY" = "$1" ]
 		 then
 			#found
-			echo "$1	$2" | cat >> ~/dbtemp -; 
+			echo "$1	$2" | cat >> ~/dbtemp."$$" -; 
 			FOUND="TRUE";
 		 else
-			echo "$f" | cat >> ~/dbtemp -;
+			echo "$f" | cat >> ~/dbtemp."$$" -;
 		fi;
 	done < "$3";
 	if [ "$FOUND" = "TRUE" ]
 	 then 
-		cat ~/dbtemp | cat > "$3" -;
-		rm ~/dbtemp;
+		cat ~/dbtemp."$$" | cat > "$3" -;
+		rm ~/dbtemp."$$";
 	 else
 		echo "Error: Key not found";
 		exit 1;
