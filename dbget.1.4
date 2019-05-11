@@ -40,13 +40,6 @@ if [ -z "$1" ] || [ -z "$2" ]
 	echo "Error: can not read database file";
 	exit 1;
  else
-	while read f 
-	 do
-		LINEKEY=$(echo "$f" | cut -d\	 -f1);
-		if [ "$1" = "$LINEKEY" ]
-		 then
-			echo $(echo "$f" | cut -d\	 -f2);
-			exit 0;
-		fi;	
-	 done < "$2" 
+	grep "^$1	" "$2" | cut -d\	 -f2 &&  exit 0;
+	exit 1;
 fi;
