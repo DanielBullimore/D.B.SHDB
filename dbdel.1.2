@@ -24,7 +24,7 @@
 #---------------
 # deletes a row from database file
 # first checks all parameters are provided, the database exists
-# and is writable.
+# and is writable but isn't open in another process.
 # Inverse searches database returning all rows except
  #the row being deleted and over writes with any results.
 # exits 1 on error and 0 on success
@@ -41,8 +41,12 @@ if [ -z "$1" ] || [ -z "$2" ]
  then
 	echo "Error: can not read or write database file";
 	exit 1;
- else
+ elif [ ! -f "$2.temp" ]
+ then 
 	grep -v "^$1	" "$2" >> "$2.temp";
 	mv "$2.temp" "$2";
 	exit 0;
+ else
+	echo "Error: File io collision"
+	exit 1;
 fi;
