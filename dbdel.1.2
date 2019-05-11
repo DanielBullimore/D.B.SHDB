@@ -1,6 +1,6 @@
 #!/bin/sh
-# File: dbdel.1.1
-# System: D.B.SHDB.1.1
+# File: dbdel.1.2
+# System: D.B.SHDB.1
 # Dependencies: executes grep commands
 # ------------------------------------------------
 # Author: Daniel Bullimore
@@ -11,6 +11,7 @@
 # Last Modified (d/m/y): 
 # 4/5/2019 Daniel Bullimore
 # 9/5/2019 Daniel Bullimore
+# 11/5/2019 Daniel Bullimore
 #
 # ------------------------------------------------
 # Copyright 2019 Daniel Bullimore
@@ -23,7 +24,7 @@
 #---------------
 # deletes a row from database file
 # first checks all parameters are provided, the database exists
-# and is writable.
+# and is writable but isn't open in another process.
 # Inverse searches database returning all rows except
  #the row being deleted and over writes with any results.
 # exits 1 on error and 0 on success
@@ -40,13 +41,12 @@ if [ -z "$1" ] || [ -z "$2" ]
  then
 	echo "Error: can not read or write database file";
 	exit 1;
- else
-	NEWFILE=$(grep -v "^$1	" "$2");
-	if [ ! -z "$NEWFILE" ]
-	 then
-		echo "$NEWFILE" | cat > "$2" -;
-	 else
-		echo -n "" | cat > "$2" -;
-	fi;
+ elif [ ! -f "$2.temp" ]
+ then 
+	grep -v "^$1	" "$2" >> "$2.temp";
+	mv "$2.temp" "$2";
 	exit 0;
+ else
+	echo "Error: File io collision"
+	exit 1;
 fi;
