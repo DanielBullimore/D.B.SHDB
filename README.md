@@ -20,6 +20,6 @@ TESTED and WORKING on:
 
 -Freebsd
 -Debian
--Kali Linux
+-Kali 
 
 Daniel
